@@ -7,7 +7,7 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build && node scripts/cache-assets.mjs",
     "preview": "vite preview --host 0.0.0.0",
-    "test": "node --test src/calc.test.js src/prompt.test.js supabase/workspace.test.js"
+    "test": "node --test src/calc.test.js src/prompt.test.js src/recipe-import.test.js supabase/workspace.test.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.118.0",
