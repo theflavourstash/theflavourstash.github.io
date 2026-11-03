@@ -1,6 +1,7 @@
+import config from './cloud-config.json';
 import {createClient} from '@supabase/supabase-js';
-const url=import.meta.env.VITE_SUPABASE_URL;
-const key=import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+const url=import.meta.env.VITE_SUPABASE_URL || config.url;
+const key=import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || config.publishableKey;
 export const configured=Boolean(url&&key);
 export const cloud=configured?createClient(url,key,{auth:{flowType:'pkce',detectSessionInUrl:true}}):null;
 export async function readWorkspace(){

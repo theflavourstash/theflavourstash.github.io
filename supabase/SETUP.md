@@ -1,6 +1,8 @@
 # Supabase setup
 
-The app remains in device-only mode until both public environment variables are configured. Existing local data is never uploaded automatically.
+Production is connected to Flavour Lab in eu-west-2 (London). The public project URL and publishable key are in `src/cloud-config.json`; environment variables override these defaults. These are browser-safe identifiers, not admin credentials. Existing local data is never uploaded automatically.
+
+Database migration and live SQL access-control tests have passed. Authentication redirect settings must be configured in the dashboard. The security advisor flags the authenticated SECURITY DEFINER RPC by design: its explicit auth.uid() ownership check, fixed search_path, restricted EXECUTE permissions and revision checks are verified by tests.
 
 1. Create a Supabase project. Apply `migrations/202611030001_workspace.sql` using its SQL editor (once), or Supabase migrations.
 2. In Authentication URL Configuration, set Site URL to `https://theflavourstash.github.io/` and allow that URL as a redirect. Enable email/password sign-in and email confirmation. Configure email delivery for reliable confirmation messages.
