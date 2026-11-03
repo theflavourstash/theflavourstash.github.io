@@ -33,6 +33,10 @@ npm run build
 npm run preview
 ```
 
+## Recipe prompt builder
+
+Open Recipe prompts to generate a brief for pasting into an AI service. Saved defaults are part of your private workspace and JSON backups. The form starts at a 0.8 ohm pod and a preferred 10% total, with editable batch, base and taste preferences. Prompts include only in-stock concentrates, exact manufacturers and available amounts. Notes and ratings are opt-in. Generation does not call an AI API or deduct stock. Review the output, copy it, and paste it into your chosen service. Changes to settings or stock require regenerating before copying.
+
 ## Features
 
 - Empty starting collection. Add your own flavours or import a private backup.

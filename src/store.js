@@ -1,3 +1,4 @@
+import {validatePrompt,promptDefaults} from './prompt';
 import {cloud,configured,readWorkspace,writeWorkspace} from './cloud';
 import {uid} from "./id";
 import {defineStore} from 'pinia';
@@ -11,6 +12,7 @@ export function validate(d){
  for(const list of [d.flavours,d.recipes]) for(const x of list) if(!Number.isInteger(x.rating)||x.rating<0||x.rating>5||!Array.isArray(x.comments)||x.comments.some(c=>typeof c.text!=='string'||typeof c.date!=='string')) throw Error('Invalid notes or ratings.');
  const recipeIds=new Set();for(const r of d.recipes){if(typeof r.id!=='string'||recipeIds.has(r.id)||typeof r.name!=='string'||!Array.isArray(r.ingredients)||calculate(r,d.flavours).errors.length) throw Error('Invalid recipe data.');recipeIds.add(r.id);}
  const batchIds=new Set();for(const b of d.batches){if(typeof b.id!=='string'||batchIds.has(b.id)||typeof b.name!=='string'||typeof b.date!=='string'||!Number.isFinite(b.volume)||b.volume<=0||typeof b.undone!=='boolean'||!Array.isArray(b.rows)||b.rows.some(r=>!ids.has(r.id)||typeof r.name!=='string'||!Number.isFinite(r.ml)||r.ml<0)) throw Error('Invalid batch data.');batchIds.add(b.id);}
+ if(d.promptDefaults!==undefined)validatePrompt({...promptDefaults(),...d.promptDefaults});
  return d;
 }
 function localData(){const raw=localStorage.getItem(KEY);return raw?validate(JSON.parse(raw)):seed();}

@@ -1,11 +1,12 @@
 <script setup>
+import PromptBuilder from './PromptBuilder.vue';
 import {uid} from "./id";
 import {ref,computed,watch,toRaw,nextTick} from 'vue';
 import {useRoute,useRouter} from 'vue-router';
-import {Droplets,LayoutGrid,BookOpen,FlaskConical,History,Settings,Plus,Search,ArrowUpRight,ArrowLeft,Check,Download,Upload,X,Trash2,Star,Undo2,Leaf,Menu} from 'lucide-vue-next';
+import {Droplets,LayoutGrid,BookOpen,FlaskConical,History,Settings,Plus,Search,ArrowUpRight,ArrowLeft,Check,Download,Upload,X,Trash2,Star,Undo2,Leaf,Menu,FileText} from 'lucide-vue-next';
 import {useLab,KEY,validate} from './store';import {calculate} from './calc';
 const lab=useLab(),route=useRoute(),router=useRouter();
-const nav=[['/','My flavours',LayoutGrid],['/recipes','Recipes',BookOpen],['/mix','Mixing desk',FlaskConical],['/history','Batch history',History]];
+const nav=[['/','My flavours',LayoutGrid],['/recipes','Recipes',BookOpen],['/mix','Mixing desk',FlaskConical],['/history','Batch history',History],['/prompts','Recipe prompts',FileText]];
 const query=ref(''),filter=ref('all'),sort=ref('name'),brand=ref('all'),toast=ref(''),modal=ref(null),editor=ref(null),comment=ref(''),confirmBatch=ref(false),pendingImport=ref(null),dialog=ref(null);let opener;
 const clone=x=>JSON.parse(JSON.stringify(x));
 const fmt=n=>Number(n.toFixed(2)).toLocaleString('en-GB');
@@ -51,7 +52,7 @@ window.addEventListener('storage',e=>{if(e.key===KEY&&!lab.configured){lab.block
   <div class="sidebar-bottom"><div class="local-note"><span class="status-dot"></span><strong>A little space of your own</strong><p>{{lab.configured?(lab.user?'Private cloud collection':'Sign in to your collection'):'Stored on this device'}}.<br>Your flavours, your creations.</p></div><RouterLink to="/settings" class="settings-link"><Settings :size="19"/>Settings & backups</RouterLink><div class="profile"><span>L</span><div>My workspace<small>Personal collection</small></div></div></div>
  </aside>
  <main>
-  <header class="topbar"><span>My workspace <span class="slash">/</span> {{route.path==='/'?'Flavour library':route.path==='/mix'?'Mixing desk':route.path==='/recipes'?'Recipe collection':route.path==='/history'?'Batch history':'Settings'}}</span><RouterLink to="/settings" class="saved"><span class="status-dot"></span>Settings & backups</RouterLink></header>
+  <header class="topbar"><span>My workspace <span class="slash">/</span> {{route.path==='/'?'Flavour library':route.path==='/mix'?'Mixing desk':route.path==='/recipes'?'Recipe collection':route.path==='/history'?'Batch history':route.path==='/prompts'?'Recipe prompts':'Settings'}}</span><RouterLink to="/settings" class="saved"><span class="status-dot"></span>Settings & backups</RouterLink></header>
   <div v-if="lab.busy" class="alert mx-page" role="status">Saving or loading your cloud collection…</div>
   <div v-if="lab.notice" class="alert mx-page">{{lab.notice}} <RouterLink to="/settings">Open Settings</RouterLink> <button @click="exportData(true)">Export original device data</button></div>
   <div class="page">
@@ -63,6 +64,7 @@ window.addEventListener('storage',e=>{if(e.key===KEY&&!lab.configured){lab.block
     <div class="flavour-grid"><button v-for="(f,i) in filtered" :key="f.id" class="flavour-card" @click="open('flavour',f)"><div class="card-top"><div class="flavour-art" :class="['art-'+(Number(f.id.slice(1))%5||0)]">{{f.emoji||'🧪'}}</div><span v-if="f.amount===0" class="stock-label out">Out of stock</span><span v-else-if="f.amount<=5" class="stock-label low">Running low</span><span v-else class="stock-label">In stock</span></div><small class="manufacturer">{{f.company}}</small><h3>{{f.name}}</h3><div class="rating-display"><span :class="{rated:f.rating}">{{f.rating?'★'.repeat(f.rating)+'☆'.repeat(5-f.rating):'☆☆☆☆☆'}}</span><small>{{f.rating?f.rating+'/5':'Not rated'}}</small></div><div class="stock-bottom"><span><strong>{{fmt(f.amount)}}</strong> ml left</span><ArrowUpRight :size="17"/></div><div class="stock-track"><i :style="{width:Math.min(f.amount/30*100,100)+'%'}" :class="{low:f.amount<=5}"/></div></button></div>
     <div v-if="!filtered.length" class="empty-state"><Search/><h3>No flavours found</h3><p>Try another search or filter.</p><button @click="query='';filter='all';brand='all'">Clear filters</button></div><div class="panel-foot">Showing {{filtered.length}} of {{flavours.length}} flavours <span>Good things start with a little experimentation.</span></div></section>
    </template>
+   <PromptBuilder v-else-if="route.path==='/prompts'"/>
    <template v-else-if="route.path==='/recipes'">
     <section class="page-heading"><div><div class="eyebrow">IDEAS WORTH KEEPING</div><h1>Your recipe book<span class="mint-dot">.</span></h1><p>Fine-tune a favourite, or dream up something new.</p></div><button class="primary" @click="newRecipe"><Plus :size="18"/>Create recipe</button></section>
     <div v-if="!lab.data.recipes.length" class="empty-state big-empty"><span class="empty-art">🧪</span><h2>Your next favourite starts here</h2><p>Create a recipe using your collection. Save it, add tasting notes,<br>and mix a batch when you're ready.</p><button class="primary" @click="newRecipe">Create your first recipe <ArrowUpRight :size="18"/></button></div>
