@@ -1,6 +1,8 @@
 # Flavour Lab
 
-A local-first e-liquid flavour inventory and recipe notebook. Vue 3, Pinia, Vue Router, Tailwind CSS 4 and Vite. No database, login, third-party API or runtime CDN.
+An e-liquid flavour inventory and recipe notebook. Vue 3, Pinia, Vue Router, Tailwind CSS 4 and Vite, with optional Supabase authentication and private cloud storage.
+
+See [Supabase setup](supabase/SETUP.md) to activate cloud accounts. Until configured, the app retains device-only storage. Existing collections are imported explicitly after sign-in.
 
 ## Run the prebuilt app (no npm required)
 
@@ -52,19 +54,21 @@ New flavour carriers default to 100% PG. Check the product information before re
 
 PG, VG and nicotine base stock are not tracked, but their required volumes are calculated. Quantities are in ml, not grams. Nicotine defaults to 0 mg/ml. Use the concentration on your own bottle. Displayed values round to 2 decimal places; stock maths retains 6 decimal places.
 
-Ratings/comments are personal, not a community system. Data stays in the browser for that exact origin (protocol, host and port). Changing the URL/port creates a separate collection. Export a backup before moving devices or URLs, or clearing browser data. Browser storage is not a substitute for backups.
+Ratings/comments are personal, not a community system. With Supabase configured, each account has a private collection; refresh to load updates from other devices. Cloud loading and editing require an internet connection. Without Supabase, data stays in the browser for that exact origin (protocol, host and port). Export backups regularly in either mode.
 
 ## Architecture
 
 - `src/seed.js`: editable starting inventory, only used when no saved data exists.
 - `src/calc.js`: pure calculation and stock deduction functions.
-- `src/store.js`: versioned local storage, validation and atomic Pinia actions.
+- `src/store.js`: validation, local persistence and asynchronous cloud saves with revision checks.
+- `src/cloud.js`: Supabase client and workspace persistence.
+- `supabase/`: database migration, access-control tests and setup instructions.
 - `src/App.vue`: inventory, recipe editor, history, settings and detail dialogs.
 - `src/style.css`: Tailwind import and responsive design system.
 - `scripts/cache-assets.mjs`: adds hashed build assets to the production service-worker cache.
 
-The store is the persistence boundary for a future API/database adapter. Hash routing makes static hosting simple.
+Cloud saves atomically update stock and batch history through a version-checked PostgreSQL transaction. Conflicts and uncertain saves block further writes until refresh. Hash routing makes static hosting simple.
 
 ## Verification
 
-Seven automated calculation tests pass, covering volume conservation, duplicate lines, stock deduction, impossible ratios, invalid inputs, VG carriers and exact stock exhaustion. Browser checks confirmed inventory rendering, recipe saving, a 5 ml deduction and undo persistence after reload. Mobile layout is implemented with CSS breakpoints; a real-device install/offline test remains recommended. Development mode intentionally does not install a service worker.
+Eight automated tests cover database ownership isolation, revision conflicts and atomic saves, plus calculations, including volume conservation, duplicate lines, stock deduction, impossible ratios, invalid inputs, VG carriers and exact stock exhaustion. Browser checks confirmed inventory rendering, recipe saving, a 5 ml deduction and undo persistence after reload. Mobile layout is implemented with CSS breakpoints; a real-device install/offline test remains recommended. Development mode intentionally does not install a service worker.
