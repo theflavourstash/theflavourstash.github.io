@@ -216,3 +216,19 @@ dialog::backdrop { background: #2a203375; backdrop-filter: blur(3px); }.modal-he
 }
 
 }
+
+/* Recipe catalogue and stock coverage */
+.recipe-controls {display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1.25rem;padding:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:1rem;margin-bottom:1rem}
+.recipe-list {display:grid;gap:1.5rem;margin-top:1.5rem}
+.recipe-list-item {display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:2rem;padding:clamp(1.25rem,3vw,2rem);background:var(--surface);border:1px solid var(--border);border-radius:1rem}
+.recipe-list-main {min-width:0}.recipe-list-main h2 {margin:.5rem 0}.recipe-actions {display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem}
+.recipe-availability {padding:1.25rem;background:var(--bg);border:1px solid var(--border);border-radius:.75rem;align-self:start;min-width:0}
+.availability-heading {display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}.availability-heading span {color:var(--muted)}
+.recipe-availability progress {display:block;width:100%;height:.6rem;margin:1rem 0;accent-color:var(--accent);border:0;border-radius:1rem;overflow:hidden}
+.recipe-availability progress::-webkit-progress-bar {background:var(--border)}.recipe-availability progress::-webkit-progress-value {background:var(--accent)}
+.availability-status {color:var(--warning-text);background:var(--warning);padding:.6rem .8rem;border-radius:.5rem;font-weight:600}
+.availability-status.ready {background:var(--mint);color:var(--mint-text)}
+.availability-caption {display:block;color:var(--muted);font-size:.85rem;margin-top:.75rem;line-height:1.6}
+.stock-details {margin-top:1rem}.stock-details summary {cursor:pointer;font-weight:600;padding:.5rem 0}.stock-details ul {padding:0;list-style:none}.stock-details li {padding:.7rem 0;border-bottom:1px solid var(--border)}.stock-details li small {display:block}.stock-details li span {color:var(--muted)}
+.mix-summary .recipe-availability {margin:1.5rem 0}
+@media(max-width:900px){.recipe-list-item{grid-template-columns:1fr;gap:1.5rem}.recipe-controls{grid-template-columns:1fr}}

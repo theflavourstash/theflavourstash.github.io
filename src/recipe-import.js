@@ -32,7 +32,7 @@ export function parseRecipeResponse(text,flavours){
    try{if(!['https:','http:'].includes(new URL(value).protocol))throw Error();}catch{throw Error(`${label}: source links must be valid HTTP or HTTPS URLs.`);}
    return value;
   });
-  const recipe={name,volume:r.volume,vg:r.vg,nicotine:r.nicotine,strength:r.strength,nicPg:r.nicPg,ingredients,rating:0,comments:[],notes:['Imported AI suggestion. Review and test before mixing.',notes,cleanSources.length?'AI-provided sources (not verified by the app):\n'+cleanSources.join('\n'):''].filter(Boolean).join('\n\n')};
+  const recipe={name,createdAt:new Date().toISOString(),volume:r.volume,vg:r.vg,nicotine:r.nicotine,strength:r.strength,nicPg:r.nicPg,ingredients,rating:0,comments:[],notes:['Imported AI suggestion. Review and test before mixing.',notes,cleanSources.length?'AI-provided sources (not verified by the app):\n'+cleanSources.join('\n'):''].filter(Boolean).join('\n\n')};
   const result=calculate(recipe,flavours);
   if(result.errors.length)throw Error(`${label} (${name}): ${result.errors.join(' ')}`);
   return recipe;

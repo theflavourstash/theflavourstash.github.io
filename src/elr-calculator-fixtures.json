@@ -1,0 +1,600 @@
+[
+  {
+    "name": "Bloody Strawberry",
+    "volume": 50,
+    "vg": 60,
+    "nicotine": 1.6,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 9
+      },
+      {
+        "flavourId": "i1",
+        "percent": 1
+      },
+      {
+        "flavourId": "i2",
+        "percent": 4
+      },
+      {
+        "flavourId": "i3",
+        "percent": 3
+      }
+    ],
+    "expected": {
+      "nic": 1.11,
+      "pg": 10.39,
+      "vg": 30,
+      "flavours": [
+        4.5,
+        0.5,
+        2,
+        1.5
+      ]
+    }
+  },
+  {
+    "name": "More Sour Candy",
+    "volume": 500,
+    "vg": 56,
+    "nicotine": 1.6,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 2
+      },
+      {
+        "flavourId": "i1",
+        "percent": 1.5
+      },
+      {
+        "flavourId": "i2",
+        "percent": 0.5
+      },
+      {
+        "flavourId": "i3",
+        "percent": 2
+      },
+      {
+        "flavourId": "i4",
+        "percent": 1
+      },
+      {
+        "flavourId": "i5",
+        "percent": 1.5
+      },
+      {
+        "flavourId": "i6",
+        "percent": 1
+      },
+      {
+        "flavourId": "i7",
+        "percent": 0.25
+      }
+    ],
+    "expected": {
+      "nic": 11.11,
+      "pg": 160.14,
+      "vg": 280,
+      "flavours": [
+        10,
+        7.5,
+        2.5,
+        10,
+        5,
+        7.5,
+        5,
+        1.25
+      ]
+    }
+  },
+  {
+    "name": "Strawberry Orange",
+    "volume": 200,
+    "vg": 70,
+    "nicotine": 1.7,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 4
+      },
+      {
+        "flavourId": "i1",
+        "percent": 2
+      },
+      {
+        "flavourId": "i2",
+        "percent": 6
+      },
+      {
+        "flavourId": "i3",
+        "percent": 3
+      },
+      {
+        "flavourId": "i4",
+        "percent": 0.5
+      }
+    ],
+    "expected": {
+      "nic": 4.72,
+      "pg": 24.28,
+      "vg": 140,
+      "flavours": [
+        8,
+        4,
+        12,
+        6,
+        1
+      ]
+    }
+  },
+  {
+    "name": "Weird Blue Colour",
+    "volume": 100,
+    "vg": 70,
+    "nicotine": 2,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 5
+      },
+      {
+        "flavourId": "i1",
+        "percent": 2
+      },
+      {
+        "flavourId": "i2",
+        "percent": 3
+      }
+    ],
+    "expected": {
+      "nic": 2.78,
+      "pg": 17.22,
+      "vg": 70,
+      "flavours": [
+        5,
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "name": "Just Fruit Chew",
+    "volume": 200,
+    "vg": 87.61111111111111,
+    "nicotine": 1,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 10
+      },
+      {
+        "flavourId": "i1",
+        "percent": 1
+      }
+    ],
+    "expected": {
+      "nic": 2.78,
+      "pg": 0,
+      "vg": 175.22,
+      "flavours": [
+        20,
+        2
+      ]
+    }
+  },
+  {
+    "name": "Strawberry Lime Mellow Candy",
+    "volume": 250,
+    "vg": 79.83333333333333,
+    "nicotine": 1.2,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 1
+      },
+      {
+        "flavourId": "i1",
+        "percent": 3.5
+      },
+      {
+        "flavourId": "i2",
+        "percent": 0.5
+      },
+      {
+        "flavourId": "i3",
+        "percent": 8.5
+      },
+      {
+        "flavourId": "i4",
+        "percent": 5
+      }
+    ],
+    "expected": {
+      "nic": 4.17,
+      "pg": 0,
+      "vg": 199.58,
+      "flavours": [
+        2.5,
+        8.75,
+        1.25,
+        21.25,
+        12.5
+      ]
+    }
+  },
+  {
+    "name": "Strawberry Melon",
+    "volume": 100,
+    "vg": 50,
+    "nicotine": 1.8,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 2
+      },
+      {
+        "flavourId": "i1",
+        "percent": 0.7
+      },
+      {
+        "flavourId": "i2",
+        "percent": 2.5
+      }
+    ],
+    "expected": {
+      "nic": 2.5,
+      "pg": 42.3,
+      "vg": 50,
+      "flavours": [
+        2,
+        0.7,
+        2.5
+      ]
+    }
+  },
+  {
+    "name": "The Best God Nectar",
+    "volume": 800,
+    "vg": 70,
+    "nicotine": 1.7,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 0.7
+      },
+      {
+        "flavourId": "i1",
+        "percent": 1.5
+      },
+      {
+        "flavourId": "i2",
+        "percent": 1.1
+      },
+      {
+        "flavourId": "i3",
+        "percent": 3.3
+      },
+      {
+        "flavourId": "i4",
+        "percent": 1.9
+      },
+      {
+        "flavourId": "i5",
+        "percent": 1.2
+      },
+      {
+        "flavourId": "i6",
+        "percent": 0.6
+      },
+      {
+        "flavourId": "i7",
+        "percent": 1.65
+      }
+    ],
+    "expected": {
+      "nic": 18.89,
+      "pg": 125.51,
+      "vg": 560,
+      "flavours": [
+        5.6,
+        12,
+        8.8,
+        26.4,
+        15.2,
+        9.6,
+        4.8,
+        13.2
+      ]
+    }
+  },
+  {
+    "name": "Juicy Pineapple Mango",
+    "volume": 800,
+    "vg": 60,
+    "nicotine": 1.7,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 1.5
+      },
+      {
+        "flavourId": "i1",
+        "percent": 3.5
+      },
+      {
+        "flavourId": "i2",
+        "percent": 1.25
+      },
+      {
+        "flavourId": "i3",
+        "percent": 1.5
+      },
+      {
+        "flavourId": "i4",
+        "percent": 0.6
+      }
+    ],
+    "expected": {
+      "nic": 18.89,
+      "pg": 234.31,
+      "vg": 480,
+      "flavours": [
+        12,
+        28,
+        10,
+        12,
+        4.8
+      ]
+    }
+  },
+  {
+    "name": "Fruit Banger",
+    "volume": 250,
+    "vg": 68,
+    "nicotine": 2.2,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 2
+      },
+      {
+        "flavourId": "i1",
+        "percent": 0.8
+      },
+      {
+        "flavourId": "i2",
+        "percent": 1
+      },
+      {
+        "flavourId": "i3",
+        "percent": 2
+      },
+      {
+        "flavourId": "i4",
+        "percent": 2
+      },
+      {
+        "flavourId": "i5",
+        "percent": 0.6
+      },
+      {
+        "flavourId": "i6",
+        "percent": 0.4
+      }
+    ],
+    "expected": {
+      "nic": 7.64,
+      "pg": 50.36,
+      "vg": 170,
+      "flavours": [
+        5,
+        2,
+        2.5,
+        5,
+        5,
+        1.5,
+        1
+      ]
+    }
+  },
+  {
+    "name": "Tropical Delight",
+    "volume": 250,
+    "vg": 68,
+    "nicotine": 1.7,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 0.8
+      },
+      {
+        "flavourId": "i1",
+        "percent": 2
+      },
+      {
+        "flavourId": "i2",
+        "percent": 1.5
+      },
+      {
+        "flavourId": "i3",
+        "percent": 0.6
+      },
+      {
+        "flavourId": "i4",
+        "percent": 1.5
+      },
+      {
+        "flavourId": "i5",
+        "percent": 2.5
+      }
+    ],
+    "expected": {
+      "nic": 5.9,
+      "pg": 51.85,
+      "vg": 170,
+      "flavours": [
+        2,
+        5,
+        3.75,
+        1.5,
+        3.75,
+        6.25
+      ]
+    }
+  },
+  {
+    "name": "Fuji Apple Gummy (Sour Edition)",
+    "volume": 353,
+    "vg": 55,
+    "nicotine": 1.7,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 0.35
+      },
+      {
+        "flavourId": "i1",
+        "percent": 3.75
+      },
+      {
+        "flavourId": "i2",
+        "percent": 3.5
+      },
+      {
+        "flavourId": "i3",
+        "percent": 1.5
+      },
+      {
+        "flavourId": "i4",
+        "percent": 1.5
+      }
+    ],
+    "expected": {
+      "nic": 8.33,
+      "pg": 113.1,
+      "vg": 194.15,
+      "flavours": [
+        1.24,
+        13.24,
+        12.36,
+        5.29,
+        5.29
+      ]
+    }
+  },
+  {
+    "name": "Forest Sorbet Ice",
+    "volume": 226,
+    "vg": 55,
+    "nicotine": 1.7,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 0.3
+      },
+      {
+        "flavourId": "i1",
+        "percent": 5
+      },
+      {
+        "flavourId": "i2",
+        "percent": 6.25
+      },
+      {
+        "flavourId": "i3",
+        "percent": 1.5
+      }
+    ],
+    "expected": {
+      "nic": 5.34,
+      "pg": 66.87,
+      "vg": 124.3,
+      "flavours": [
+        0.68,
+        11.3,
+        14.13,
+        3.39
+      ]
+    }
+  },
+  {
+    "name": "Sour Strawberry Jelly Freeze",
+    "volume": 500,
+    "vg": 55,
+    "nicotine": 1.4,
+    "strength": 72,
+    "nicPg": 100,
+    "ingredients": [
+      {
+        "flavourId": "i0",
+        "percent": 0.5
+      },
+      {
+        "flavourId": "i1",
+        "percent": 2
+      },
+      {
+        "flavourId": "i2",
+        "percent": 1.25
+      },
+      {
+        "flavourId": "i3",
+        "percent": 1
+      },
+      {
+        "flavourId": "i4",
+        "percent": 3.5
+      },
+      {
+        "flavourId": "i5",
+        "percent": 2
+      },
+      {
+        "flavourId": "i6",
+        "percent": 0.5
+      }
+    ],
+    "expected": {
+      "nic": 9.72,
+      "pg": 161.53,
+      "vg": 275,
+      "flavours": [
+        2.5,
+        10,
+        6.25,
+        5,
+        17.5,
+        10,
+        2.5
+      ]
+    }
+  }
+]
