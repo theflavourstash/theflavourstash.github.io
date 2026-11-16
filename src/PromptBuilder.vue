@@ -1,4 +1,5 @@
 <script setup>
+import {exclusionRecipes} from './recipe-matches.js';
 import RecipeResponseImport from './RecipeResponseImport.vue';
 import {ref,computed,watch} from 'vue';
 import {Copy,SlidersHorizontal,FileText} from 'lucide-vue-next';
@@ -7,11 +8,12 @@ import {promptDefaults,validatePrompt,buildPrompt} from './prompt';
 const lab=useLab();
 const form=ref(promptDefaults()),output=ref(''),message=ref(''),outputField=ref(null),generatedFrom=ref('');
 const stocked=computed(()=>lab.data.flavours.filter(f=>f.amount>0));
-const fingerprint=computed(()=>JSON.stringify([form.value,lab.data.flavours]));
+const excluded=computed(()=>exclusionRecipes(form.value.excludeRecipes,lab.data.recipes,lab.data.batches));
+const fingerprint=computed(()=>JSON.stringify([form.value,lab.data.flavours,lab.data.recipes,lab.data.batches]));
 const stale=computed(()=>output.value&&generatedFrom.value!==fingerprint.value);
 watch(()=>lab.data.promptDefaults,p=>{form.value={...promptDefaults(),...(p||{})};},{immediate:true});
 watch(()=>lab.user?.id,()=>{form.value=promptDefaults();output.value='';message.value='';});
-function generate(){try{output.value=buildPrompt(form.value,lab.data.flavours);generatedFrom.value=fingerprint.value;message.value='Prompt ready. Review it, then copy into your chosen AI service.';}catch(e){message.value=e.message;}}
+function generate(){try{output.value=buildPrompt(form.value,lab.data.flavours,lab.data.recipes,lab.data.batches);generatedFrom.value=fingerprint.value;message.value='Prompt ready. Review it, then copy into your chosen AI service.';}catch(e){message.value=e.message;}}
 async function save(){try{validatePrompt(form.value);await lab.commit({...JSON.parse(JSON.stringify(lab.data)),promptDefaults:JSON.parse(JSON.stringify(form.value))});message.value=lab.configured?'Defaults saved to your account.':'Defaults saved on this device.';}catch(e){message.value=e.message;}}
 function reset(){form.value={...promptDefaults(),...(lab.data.promptDefaults||{})};message.value='Saved defaults loaded.';}
 async function copy(){try{await navigator.clipboard.writeText(output.value);message.value='Prompt copied.';}catch{outputField.value?.focus();outputField.value?.select();message.value='Automatic copying is unavailable. The prompt is selected: use your device’s Copy command.';}}
@@ -38,6 +40,10 @@ async function copy(){try{await navigator.clipboard.writeText(output.value);mess
   <label class="mt-5">Flavours or ingredients to avoid<input v-model="form.avoid" maxlength="3000" placeholder="e.g. Coconut, mango, menthol"/></label>
   <div class="field-grid mt-6"><label>Sweetness<select v-model="form.sweetness"><option v-for="v in ['No added sweetener','Light','Balanced','Sweet','Very sweet']">{{v}}</option></select></label><label>Cooling<select v-model="form.cooling"><option v-for="v in ['None','Light','Medium','Strong']">{{v}}</option></select></label></div>
   <label class="mt-5">Other preferences<textarea v-model="form.extra" rows="3" maxlength="3000" placeholder="Preferred concentrates, a particular sweetener percentage, steep time…"/></label>
+  <hr/><h2>Keep suggestions fresh</h2>
+  <label class="mt-5">Recipes to exclude<select v-model="form.excludeRecipes"><option value="saved">All saved recipes</option><option value="mixed">Previously mixed recipes only</option><option value="none">None</option></select></label>
+  <p class="mt-3">{{excluded.length}} distinct blends excluded. Only compact ingredient summaries are included, without notes or comments. Previously mixed uses recorded batches, excluding undone batches.</p>
+  <details v-if="excluded.length" class="mt-3"><summary>View excluded recipes</summary><ul><li v-for="(r,i) in excluded" :key="i">{{r.name}}</li></ul></details>
   <label class="prompt-checkbox mt-6"><input v-model="form.includeNotes" type="checkbox"/><span>Include my flavour ratings, notes and comments in the copied prompt</span></label>
   <div class="prompt-actions"><button type="button" :disabled="lab.busy||lab.blocked||!lab.ready" @click="save">Save defaults</button><button type="button" @click="reset">Load saved defaults</button></div>
   <p v-if="lab.configured&&!lab.user" class="mt-3"><RouterLink to="/settings" class="prompt-link">Sign in</RouterLink> to save defaults and include your cloud inventory. You can still draft a prompt here.</p>
@@ -49,7 +55,7 @@ async function copy(){try{await navigator.clipboard.writeText(output.value);mess
   <p class="mt-5">The prompt asks for exact manufacturer research, supporting sources, sensible percentages and a stock check. An AI response still needs your review.</p>
   <p v-if="!stocked.length" class="prompt-warning mt-5">No in-stock flavours are loaded. The prompt will ask for your inventory before suggesting recipes.</p>
   <p v-if="lab.blocked&&lab.user" class="prompt-warning mt-5">Your cloud collection needs a refresh in Settings. Stock in a generated prompt may be out of date.</p>
-  <p v-if="stale" class="prompt-warning mt-5">Settings or stock have changed. Generate the prompt again before copying.</p>
+  <p v-if="stale" class="prompt-warning mt-5">Settings, stock or recipe history have changed. Generate the prompt again before copying.</p>
   <label v-if="output" class="mt-6">Generated prompt<textarea ref="outputField" class="prompt-output" :value="output" readonly rows="25" spellcheck="false"/></label>
   <div v-else class="empty-state"><FileText :size="36"/><h3>Your prompt preview</h3><p>Your generated prompt will appear here, ready to review and copy.</p></div>
   <button class="primary w-full mt-5" :disabled="!output||!!stale" @click="copy"><Copy :size="18"/>Copy prompt</button>
