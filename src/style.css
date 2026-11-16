@@ -6,27 +6,27 @@
   font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: clamp(16px, .97rem + .15vw, 18px);
   font-synthesis: none;
-  --bg: #fff8f4; --surface: #fffdfb; --soft: #fae8ee;
-  --text: #473640; --muted: #75616d; --border: #dac5d0;
-  --accent: #963e68; --on-accent: #ffffff; --accent-hover: #7d2c53;
-  --control-border: #ae8a9d; --control-bg: #ffffff; --panel-shadow: 0 3px 12px #6b3f570b;
-  --mint: #e5f3eb; --mint-text: #365e4b;
-  --lavender: #eee8f8; --lavender-text: #64517b;
-  --vanilla: #fff1d6; --warning: #fff1d6; --warning-text: #795522;
-  --error: #fbe4e3; --error-text: #963d44; --focus: #a8537b;
-  --star: #8b641c; --shadow: 0 8px 28px #6b3f5710;
+  --bg: #f7f7fc; --surface: #ffffff; --soft: #e8e3f3;
+  --text: #1b1b24; --muted: #42424f; --border: #b7b5c3;
+  --accent: #493078; --on-accent: #ffffff; --accent-hover: #38215f;
+  --control-border: #74717e; --control-bg: #ffffff; --panel-shadow: 0 3px 12px #6b3f570b;
+  --mint: #e0efe8; --mint-text: #173e30;
+  --lavender: #e8e3f3; --lavender-text: #352254;
+  --vanilla: #fff0d2; --warning: #fff0d2; --warning-text: #513600;
+  --error: #fce4e4; --error-text: #711c24; --focus: #493078;
+  --star: #594000; --shadow: 0 8px 28px #6b3f5710;
   color: var(--text); background: var(--bg);
 }
 :root[data-theme=dark] {
-  --bg: #211c26; --surface: #2b2430; --soft: #40303e;
-  --text: #f5eaf1; --muted: #c5b2c1; --border: #665369;
-  --accent: #edb1ce; --on-accent: #422437; --accent-hover: #f7cee2;
-  --control-border: #99809a; --control-bg: #382d3d; --panel-shadow: 0 4px 16px #00000026;
-  --mint: #293d38; --mint-text: #bbdfce;
-  --lavender: #383047; --lavender-text: #d5c5ed;
-  --vanilla: #413728; --warning: #413728; --warning-text: #efd399;
-  --error: #482d37; --error-text: #f4b5bf; --focus: #f0b9d4;
-  --star: #f1d38e; --shadow: 0 8px 28px #00000018;
+  --bg: #121318; --surface: #1c1d24; --soft: #30303f;
+  --text: #f4f2fa; --muted: #d3d0de; --border: #63616f;
+  --accent: #d1bcff; --on-accent: #24113f; --accent-hover: #e3d6ff;
+  --control-border: #9693a3; --control-bg: #252630; --panel-shadow: 0 4px 16px #00000026;
+  --mint: #1b332a; --mint-text: #c1ebd8;
+  --lavender: #30303f; --lavender-text: #e3d6ff;
+  --vanilla: #392d18; --warning: #392d18; --warning-text: #ffe1a5;
+  --error: #3e2229; --error-text: #ffd3d7; --focus: #e3d6ff;
+  --star: #ffe1a5; --shadow: 0 8px 28px #00000018;
 }
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--text); background: var(--bg); line-height: 1.55; }
@@ -232,3 +232,78 @@ dialog::backdrop { background: #2a203375; backdrop-filter: blur(3px); }.modal-he
 .stock-details {margin-top:1rem}.stock-details summary {cursor:pointer;font-weight:600;padding:.5rem 0}.stock-details ul {padding:0;list-style:none}.stock-details li {padding:.7rem 0;border-bottom:1px solid var(--border)}.stock-details li small {display:block}.stock-details li span {color:var(--muted)}
 .mix-summary .recipe-availability {margin:1.5rem 0}
 @media(max-width:900px){.recipe-list-item{grid-template-columns:1fr;gap:1.5rem}.recipe-controls{grid-template-columns:1fr}}
+
+/* Material-inspired role hierarchy; colour is supplemented by text, borders and focus. */
+input::placeholder,textarea::placeholder{opacity:1}
+.topbar{flex-wrap:wrap}.topbar-actions{flex-wrap:wrap;gap:.65rem;min-width:0}
+button,.button,summary,.saved,.back-link,.settings-link,nav a{min-height:44px}
+button,.button,.icon-button,.stars button{min-width:44px}
+.stars button{width:44px;min-height:44px}
+details summary{display:list-item;padding:.7rem .25rem;line-height:1.5}
+label.prompt-checkbox{min-height:44px;align-items:center}
+a:not(.brand):not(.settings-link):not(.saved):not(.back-link):not(nav a):not(.skip-link){text-underline-offset:.2em}
+.settings-panel p a,.prompt-link,.alert a{text-decoration:underline}
+.inventory-summary>div,.inventory-summary>button{background:var(--surface)}
+.inventory-summary>div:nth-child(2){background:var(--surface)}
+.inventory-summary>button{background:var(--soft)}
+.inventory-summary strong{color:var(--text)}
+.mix-summary{background:var(--surface);border-top-color:var(--accent)}
+.white-panel,.recipe-list-item,.collection-panel{box-shadow:none}
+.section-number{color:var(--accent)}
+.skip-link{position:fixed;left:1rem;top:1rem;transform:translateY(-180%);padding:.8rem 1rem;z-index:100;background:var(--accent);color:var(--on-accent);border:2px solid var(--on-accent);border-radius:.4rem}
+.skip-link:focus{transform:translateY(0)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+#main-content:focus{outline:none}
+[data-density=compact] .page{padding:1.25rem clamp(.75rem,2vw,1.5rem) 2rem;max-width:110rem}
+[data-density=compact] .page-heading{margin-bottom:1rem;gap:.75rem}
+[data-density=compact] .page-heading p{margin-top:.35rem}
+[data-density=compact] .topbar{min-height:3.5rem;padding:.4rem 1rem}
+[data-density=compact] .inventory-summary{margin-bottom:1rem;gap:.5rem}
+[data-density=compact] .inventory-summary>div,[data-density=compact] .inventory-summary>button{padding:.65rem 1rem}
+[data-density=compact] .panel-top{margin-bottom:.75rem}
+[data-density=compact] .filter-row{padding:.5rem;margin-bottom:.75rem;gap:.5rem}
+[data-density=compact] .inventory-table th,[data-density=compact] .inventory-table td{padding:.35rem .75rem}
+[data-density=compact] .stock-status{margin-top:0}
+[data-density=compact] .white-panel,[data-density=compact] .mix-summary{padding:1rem}
+[data-density=compact] .mix-layout,[data-density=compact] .prompt-layout{gap:1rem}
+[data-density=compact] .field-grid{gap:.75rem;margin:.75rem 0}
+[data-density=compact] .ingredient-row{margin-bottom:.65rem}
+[data-density=compact] .section-number{margin-bottom:.75rem;padding-bottom:.5rem}
+[data-density=compact] .summary-lines{margin:.75rem 0}
+[data-density=compact] .summary-lines>div{padding:.35rem 0}
+[data-density=compact] .recipe-list{gap:.65rem;margin-top:.75rem}
+[data-density=compact] .recipe-controls{padding:.75rem;gap:.75rem}
+[data-density=compact] .recipe-list-item{padding:1rem;gap:1rem}
+[data-density=compact] .recipe-availability{padding:.75rem}
+[data-density=compact] .recipe-actions{margin-top:.65rem;gap:.5rem}
+[data-density=compact] .recipe-excerpt{-webkit-line-clamp:1}
+[data-density=compact] hr{margin:1.25rem 0}
+[data-density=compact] .batch{margin-bottom:.65rem}
+[data-density=compact] .sidebar{padding-top:1rem}
+[data-density=compact] .brand{margin-bottom:1.5rem}
+[data-density=compact] nav a{padding:.6rem .75rem}
+[data-density=compact] .panel-foot{margin-top:.65rem}
+[data-density=compact] button,[data-density=compact] .button{padding:.45rem .75rem}
+[data-density=compact] input:not([type=checkbox]):not([type=file]),[data-density=compact] select{padding:.5rem .65rem;min-height:44px}
+@media(max-width:760px){
+ .topbar-actions{justify-content:flex-start;width:100%;gap:.5rem}
+ .topbar-actions .saved{margin-left:auto}
+ .topbar-actions button{flex:1 1 auto}
+ [data-density=compact] .sidebar{padding:.75rem}
+ [data-density=compact] .brand{margin-bottom:.75rem}
+ [data-density=compact] nav a{padding:.5rem .15rem}
+ [data-density=compact] .inventory-table tr{padding:.6rem .75rem;gap:0 .65rem}
+ [data-density=compact] .inventory-table td{padding:0}
+ [data-density=compact] .inventory-table .rating-cell,[data-density=compact] .inventory-table .edit-cell{margin-top:.25rem}
+}
+@media(forced-colors:active){button,a,input,select,textarea,summary{forced-color-adjust:auto}.recipe-availability progress{border:1px solid CanvasText}.stock-status{color:CanvasText}}
+
+[data-density=compact] .recipe-list-item .recipe-excerpt{display:none}
+[data-density=compact] .recipe-list-item h2{margin:.2rem 0}
+[data-density=compact] .recipe-list-item .availability-status{padding:.35rem .5rem}
+[data-density=compact] .recipe-list-item progress{margin:.5rem 0}
+[data-density=compact] .recipe-list-item .availability-caption{margin-top:.35rem}
+[data-density=compact] .recipe-list-item .stock-details{margin-top:.35rem}
+[data-density=compact] .recipe-list-item .eyebrow{margin-bottom:.3rem}
+.white-panel{border-top-width:1px;border-top-color:var(--border)}
+.eyebrow,.nav-label{font-size:.8rem;letter-spacing:.06em}

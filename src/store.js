@@ -19,19 +19,23 @@ export function validate(d){
 function localData(){const raw=localStorage.getItem(KEY);return raw?validate(JSON.parse(raw)):seed();}
 let initial=seed(),loadError='';
 if(!configured)try{initial=localData();}catch{loadError='Saved data could not be read. Export the stored data before importing a valid backup.';}
-export const useLab=defineStore('lab',{state:()=>({data:initial,notice:loadError,blocked:!!loadError,configured,user:null,ready:!configured,busy:false,revision:0}),actions:{
+export const useLab=defineStore('lab',{state:()=>({data:initial,notice:loadError,blocked:!!loadError,configured,user:null,ready:!configured,busy:false,revision:0,recovering:false,recoveryError:''}),actions:{
  async init(){
   if(!cloud)return;
   cloud.auth.onAuthStateChange((_event,session)=>{
    const user=session?.user||null;
+   if(_event==='PASSWORD_RECOVERY'&&user){this.recovering=true;this.recoveryError='';try{sessionStorage.setItem('flavour-lab-recovery',user.id);}catch{}}
+   if(user){try{if(sessionStorage.getItem('flavour-lab-recovery')===user.id)this.recovering=true;}catch{}}
+   else{this.recovering=false;try{sessionStorage.removeItem('flavour-lab-recovery');}catch{}}
    if(user?.id===this.user?.id&&this.ready)return;
    this.user=user;this.data=seed();this.revision=0;this.blocked=true;this.ready=false;
    if(!user){this.ready=true;this.notice='Sign in from Settings to open your cloud collection.';return;}
    setTimeout(()=>this.refresh().catch(e=>{this.notice=e.message;}),0);
   });
   const {error}=await cloud.auth.getSession();
-  if(error){this.ready=true;this.notice=error.message;}
+  if(error){this.ready=true;this.recoveryError='The sign-in or reset link could not be verified. Request a fresh link and open it in the same browser.';this.notice=this.recoveryError;}
  },
+ finishRecovery(){this.recovering=false;this.recoveryError='';try{sessionStorage.removeItem('flavour-lab-recovery');}catch{}},
  async refresh(){
   if(!this.user||this.busy)return;
   const owner=this.user.id;
