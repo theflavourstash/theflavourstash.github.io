@@ -1,7 +1,7 @@
 <script setup>
 import {computed} from 'vue';
 import {availability} from './availability.js';
-const props=defineProps({recipe:Object,flavours:Array});
+const props=defineProps({recipe:Object,flavours:Array,showHelp:{type:Boolean,default:true}});
 const stock=computed(()=>availability(props.recipe,props.flavours));
 const ml=n=>Number(n.toFixed(2)).toLocaleString('en-GB');
 </script>
@@ -16,6 +16,6 @@ const ml=n=>Number(n.toFixed(2)).toLocaleString('en-GB');
    <ul><li v-for="row in stock.missing" :key="row.id"><strong>{{row.name}}</strong> <span>{{row.company}}</span><small>Out of stock · need {{ml(row.ml)}} ml</small></li>
    <li v-for="row in stock.short" :key="row.id"><strong>{{row.name}}</strong> <span>{{row.company}}</span><small>{{ml(row.available)}} of {{ml(row.ml)}} ml available · short {{ml(row.shortBy)}} ml</small></li></ul>
   </details>
-  <small class="availability-caption">Flavour concentrates only. PG, VG and nicotine stock aren't tracked.</small>
+  <small v-if="showHelp" class="availability-caption">Flavour concentrates only. PG, VG and nicotine stock aren't tracked.</small>
  </section>
 </template>

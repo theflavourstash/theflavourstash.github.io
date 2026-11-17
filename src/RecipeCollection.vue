@@ -19,10 +19,10 @@ const date=r=>r.createdAt ? new Date(r.createdAt).toLocaleDateString('en-GB',{da
    <label>Show<select v-model="filter"><option value="all">All recipes</option><option value="owned">All flavours in stock</option><option value="ready">Enough for the saved batch</option></select></label>
    <label>Sort by<select v-model="sort"><option value="newest">Date: newest first</option><option value="oldest">Date: oldest first</option><option value="available">Most flavours in stock</option><option value="name">Name: A–Z</option></select></label>
   </div>
-  <p class="muted">{{visible.length}} of {{recipes.length}} recipes · Availability uses your current flavour stock.</p>
+  <p class="muted">{{visible.length}} of {{recipes.length}} recipes · Availability uses flavour stock only. PG, VG and nicotine are not tracked.</p>
   <div class="recipe-list"><article v-for="r in visible" :key="r.id" class="recipe-list-item">
    <div class="recipe-list-main"><small class="eyebrow">{{date(r)}}<span v-if="r.dateYearInferred"> · year inferred</span></small><h2>{{r.name}}</h2><p>{{r.volume}} ml · {{Number(r.vg.toFixed(2))}}% VG · {{r.ingredients.length}} flavours</p><p class="recipe-excerpt">{{r.notes||'No tasting notes yet.'}}</p><p v-if="r.rating" class="personal-rating">My rating: {{r.rating}} / 5</p><div class="recipe-actions"><button class="primary" @click="$emit('open',r)">Open recipe</button><button @click="$emit('review',r)">Notes & rating</button></div></div>
-   <RecipeAvailability :recipe="r" :flavours="flavours"/>
+   <RecipeAvailability :recipe="r" :flavours="flavours" :show-help="false"/>
   </article></div>
   <div v-if="!visible.length" class="empty-state"><h2>No matching recipes</h2><p>Try a different search or availability filter.</p><button @click="search='';filter='all'">Clear filters</button></div>
  </section>

@@ -43,5 +43,5 @@ async function update(){
 </section>
 </template>
 <style scoped>
-.password-recovery{max-width:42rem}.password-recovery h2{margin-bottom:1rem}.password-recovery label{margin:1.25rem 0}.recovery-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem}.recovery-error,.recovery-success{padding:1rem;border-radius:.5rem;margin-top:1rem}.recovery-error{color:var(--error-text);background:var(--error)}.recovery-success{color:var(--mint-text);background:var(--mint)}
+.password-recovery{max-width:42rem}.password-recovery h2{margin-bottom:var(--space-md)}.password-recovery label{margin:var(--space-md) 0}.recovery-actions{display:flex;gap:var(--space-sm) .75rem;flex-wrap:wrap;margin-top:var(--space-md)}.recovery-error,.recovery-success{padding:var(--space-md) 1rem;border-radius:.5rem;margin-top:var(--space-md)}.recovery-error{color:var(--error-text);background:var(--error)}.recovery-success{color:var(--mint-text);background:var(--mint)}
 </style>
